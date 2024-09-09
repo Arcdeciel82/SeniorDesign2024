@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import List
 
 class DataStore:
-    # A container for easily accessing and storing a set of synchonized signals.
+    """A container for easily accessing and storing a set of synchonized signals."""
     signalData = defaultdict(List)
     signalFreq = {}
 
@@ -67,7 +67,7 @@ class DataStore:
         self.signalFreq[signalName] = signalFreq
     
 if __name__ == "__main__":
-    # For testing
+    """For testing"""
     testCSV = open("./test.csv", "w")
     testData = """s1,s2,s3,s4
 5,100,500,1000
