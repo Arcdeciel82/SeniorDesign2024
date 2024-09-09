@@ -16,40 +16,40 @@ signal2data
 
 from collections import defaultdict
 from pathlib import Path
+from typing import List
 
 class DataStore:
     # A container for easily accessing and storing a set of synchonized signals.
-    signalData = defaultdict(list)
+    signalData = defaultdict(List)
     signalFreq = {}
 
-    def __init__(self, PathToDataFile:Path):
-        self.path = Path(PathToDataFile)
+    def __init__(self, pathToDataFile:Path):
+        self.path = Path(pathToDataFile)
         if self.path.is_file():
-            self.load()
+            self.load(pathToDataFile)
 
-    def load(self, PathToDataFile=None):
-        if PathToDataFile == None:
-            PathToDataFile = self.path
-        else:
-            PathToDataFile = Path(PathToDataFile)
-        file = open(PathToDataFile)
+    def load(self, pathToDataFile:Path):
+        """Load data from pathToDataFile."""
+        pathToDataFile = Path(pathToDataFile)
+        file = open(pathToDataFile)
         data = file.read().splitlines()
         keys = data[0].split(sep=",")
         freqs = data[1].split(sep=",")
         for name, freq, values in zip(keys, freqs, data[3:]):
-            self.signalData[name] = list(map(int, values.split(sep=",")))
+            self.signalData[name] = [float(x) for x in values.split(sep=",")]
             self.signalFreq[name] = int(freq)
         file.close()
     
     def save(self):
+        """Save data to self.path"""
         file = open(self.path, "w")
         freqs = []
         datalines = []
         for name in self.signalData.keys():
             freqs.append(self.signalFreq[name])
-            datalines.append(','.join(map(str, self.signalData[name])))
-        names = ','.join(map(str, self.signalData.keys()))
-        freqs = ','.join(map(str, freqs))
+            datalines.append(','.join([str(x) for x in self.signalData[name]]))
+        names = ','.join([str(x) for x in self.signalData.keys()])
+        freqs = ','.join([str(x) for x in freqs])
         file.write(names + "\n")
         file.write(freqs + "\n\n")
         file.writelines(line + "\n" for line in datalines)
@@ -58,8 +58,13 @@ class DataStore:
     def __str__(self):
         output = ""
         for name in self.signalData.keys():
-            output += name + " " + str(self.signalFreq[name]) + ": " + ",".join(map(str, self.signalData[name])) + "\n"
+            output += name + " " + str(self.signalFreq[name]) + ": " + ",".join([str(x) for x in self.signalData[name]]) + "\n"
         return output
+
+    def add_signal(self, signalName:str, signalFreq:float, signalData:List[float] = []):
+        """Add new signal to DataStore."""
+        self.signalData[signalName] = signalData
+        self.signalFreq[signalName] = signalFreq
     
 if __name__ == "__main__":
     # For testing
@@ -77,3 +82,5 @@ if __name__ == "__main__":
     data = DataStore("./test.csv")
     print(data)
     data.save()
+    data.add_signal("s5", 2000, [17, 18, 19, 20])
+    print(data)
