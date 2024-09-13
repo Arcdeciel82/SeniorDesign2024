@@ -169,3 +169,11 @@ cython_debug/
 
 #test files
 test*
+
+# python venv
+
+pyvenv.cfg
+lib
+lib64
+include
+bin
