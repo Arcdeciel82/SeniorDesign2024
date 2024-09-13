@@ -14,13 +14,13 @@ signal2data
 
 '''
 
-from collections import defaultdict
 from pathlib import Path
 from typing import List
+from pandas import DataFrame
 
 class DataStore:
     """A container for easily accessing and storing a set of synchonized signals."""
-    signalData = defaultdict(List)
+    signalData = DataFrame()
     signalFreq = {}
 
     def __init__(self, pathToDataFile:Path):
