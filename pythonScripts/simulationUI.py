@@ -4,10 +4,10 @@
 
 from nicegui import ui
 from nicegui.events import ValueChangeEventArguments
-from collection import cytonCollection, ue5Collection, tobiCollection
+from collection import dataCollection, cytonCollection, ue5Collection, tobiCollection
 
 
-def CollectionSwitch(event:ValueChangeEventArguments, agent):
+def CollectionSwitch(event:ValueChangeEventArguments, agent:dataCollection):
     if event.value:
         ui.notify(f"Starting {event.sender._text}!")
         agent.startCollection()
@@ -15,7 +15,7 @@ def CollectionSwitch(event:ValueChangeEventArguments, agent):
         ui.notify(f"Stopping {event.sender._text}!")
         agent.stopCollection()
 
-cyton = cytonCollection()
+cyton = cytonCollection("/dev/ttyUSB0")
 ue5 = ue5Collection()
 tobi = tobiCollection()
 
