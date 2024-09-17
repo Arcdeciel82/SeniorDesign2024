@@ -15,15 +15,16 @@ def CollectionSwitch(event:ValueChangeEventArguments, agent:dataCollection):
         ui.notify(f"Stopping {event.sender._text}!")
         agent.stopCollection()
 
-cyton = cytonCollection("/dev/ttyUSB0")
-ue5 = ue5Collection()
-tobi = tobiCollection()
+if __name__ in {"__main__", "__mp_main__"}:
+    cyton = cytonCollection("COM5")
+    ue5 = ue5Collection()
+    tobi = tobiCollection()
 
-ui.dark_mode(True)
-ui.page_title("Data Collection")
-with ui.row():
-    ui.switch('Cyton Collection', on_change=lambda e: CollectionSwitch(e, cyton))
-    ui.switch('Tobi Collection', on_change=lambda e: CollectionSwitch(e, tobi))
-    ui.switch('UE5 Simulation', on_change=lambda e: CollectionSwitch(e, ue5))
+    ui.dark_mode(True)
+    ui.page_title("Data Collection")
+    with ui.row():
+        ui.switch('Cyton Collection', on_change=lambda e: CollectionSwitch(e, cyton))
+        ui.switch('Tobi Collection', on_change=lambda e: CollectionSwitch(e, tobi))
+        ui.switch('UE5 Simulation', on_change=lambda e: CollectionSwitch(e, ue5))
 
-ui.run()
+    ui.run(port=9587)
