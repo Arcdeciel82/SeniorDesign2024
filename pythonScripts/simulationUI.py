@@ -15,11 +15,11 @@ def CollectionSwitch(event:ValueChangeEventArguments, agent:dataCollection):
         ui.notify(f"Stopping {event.sender._text}!")
         agent.stopCollection()
 
-if __name__ in {"__main__", "__mp_main__"}:
-    cyton = cytonCollection("COM5")
-    ue5 = ue5Collection()
-    tobi = tobiCollection()
+cyton = cytonCollection("COM5")
+ue5 = ue5Collection()
+tobi = tobiCollection()
 
+if __name__ in {"__main__", "__mp_main__"}:
     ui.dark_mode(True)
     ui.page_title("Data Collection")
     with ui.row():
