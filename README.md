@@ -6,8 +6,8 @@
 
 - [x] Cyton Data Collection
 
-- [] Tobi Data Colelction
+- [ ] Tobi Data Colelction
 
-- [] Unreal Engine Data Collection
+- [ ] Unreal Engine Data Collection
 
-- [] Initial Simulation Environment
+- [ ] Initial Simulation Environment
