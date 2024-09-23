@@ -178,6 +178,7 @@ lib64
 include
 bin
 share
+Scripts
 
 # OpenBCI Gui
 OpenBCI_GUI
